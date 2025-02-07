@@ -16,7 +16,7 @@ a tensorflow-based pipeline for tuning deep learning model hyperparameters with 
 1. **Install dependencies**:  
    pip install tensorflow numpy
 
-2. **Run hyperparameter search:**
+2. **Run hyperparameter search**:
    python train.py
 
 3. Modify train.py, model.py, train_utils.py to implement custom architectures and use different datasets.
