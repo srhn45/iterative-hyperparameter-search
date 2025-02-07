@@ -27,11 +27,15 @@ def get_train_step():
 
 def train_model(model, X_train, y_train, X_valid, y_valid, optimizer, loss_fn, batch_size, n_epochs):
     """Train the model and return the validation accuracy."""
+    import logging
     
     train_step = get_train_step()
     valid_metric = tf.keras.metrics.SparseCategoricalAccuracy()
     mean_loss = tf.keras.metrics.Mean(name="mean_loss")
     accuracy = tf.keras.metrics.SparseCategoricalAccuracy()
+
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__) # set up logging
 
     for epoch in range(1, n_epochs + 1):
         logger.info(f"Epoch {epoch}/{n_epochs}")

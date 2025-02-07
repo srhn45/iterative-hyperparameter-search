@@ -7,7 +7,7 @@ class SuperbLayer(tf.keras.layers.Layer):
     def __init__(self, n_neurons, activation="swish", kernel_initializer="he_normal", dropout_rate=0.2, **kwargs):
         super().__init__(**kwargs)
         self.n_neurons = n_neurons
-        self.activation_fn = tf.keras.activations.get(activation)
+        self.activation_fn = activation
         self.kernel_initializer = kernel_initializer
         self.dropout_rate = dropout_rate
 

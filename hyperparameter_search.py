@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import logging
 
 def change_hyperparameters(best_params, search_space, change_factor=0.2, change_proba=0.5):
     """Change a subset of the best hyperparameters within a small range."""
@@ -17,6 +18,11 @@ def change_hyperparameters(best_params, search_space, change_factor=0.2, change_
     return new_params
 
 def guided_hyperparameter_search(X_train_full, y_train_full, max_trials=50, patience=10, initial_epochs=5, change_factor=0.2, change_proba=0.5, output_dim=10):
+    import logging
+    from model import SuperbModel, SuperbLayer
+    from train_utils import random_batch, print_status_bar, get_train_step, train_model
+    from sklearn.model_selection import train_test_split
+
     search_space = {
         "batch_size": [16, 64],
         "optimizer": ["Nadam", "Adam", "RMSprop", "SGD"],
@@ -33,6 +39,9 @@ def guided_hyperparameter_search(X_train_full, y_train_full, max_trials=50, pati
     best_params = None
     no_improvement_count = 0
     n_epochs = initial_epochs
+
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__) # set up logging
 
     for trial in range(1, max_trials + 1):
         logger.info(f"\nTrial {trial}/{max_trials}")
